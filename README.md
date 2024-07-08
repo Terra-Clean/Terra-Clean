@@ -1,4 +1,5 @@
-## Hi there 👋
+## Hola 👋
+#Somos Terra Clean, un grupo de jovenes que quieren cuidar el bienestar del planeta, gracias al programa de "Nation Builders" el cual ayuda a jovenes de buenaventura a cumplir con sus proyectos para mejorrar la calidad de vida y la salud ambiental, yo y mi grupo (Terra CLean) empezando por la zona del malecon y la comuna 12 de buenaventura
 
 <!--
 **Terra-Clean/Terra-Clean** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
