@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terra Clean - Concientizando sobre el cuidado del medio ambiente</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: url('https://wallhere.com/es/wallpaper/554353') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            font-family: 'Merriweather', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        header p {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+        section {
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .main-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .content {
+            text-align: justify;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .donation-form {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .donation-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        .donation-form input,
+        .donation-form select,
+        .donation-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .donation-form button {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .donation-form button:hover {
+            background-color: #1b5e20;
+        }
+        .confirmation-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+        .confirmation-message h2 {
+            font-size: 2rem;
+            color: #2e7d32;
+        }
+        .testimonial {
+            background-color: #f9f9f9;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .faq {
+            margin-top: 2rem;
+        }
+        .faq h3 {
+            margin-bottom: 0.5rem;
+        }
+        .faq p {
+            margin-bottom: 1rem;
+        }
+        @media (max-width: 600px) {
+            section {
+                padding: 1rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var stripe = Stripe('YOUR_PUBLIC_STRIPE_KEY');
+            var elements = stripe.elements();
+            var card = elements.create('card');
+            card.mount('#card-element');
+
+            var form = document.getElementById('donation-form');
+            var confirmationMessage = document.getElementById('confirmation-message');
+            var errorElement = document.getElementById('card-errors');
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                stripe.createToken(card).then(function (result) {
+                    if (result.error) {
+                        errorElement.textContent = result.error.message;
+                    } else {
+                        stripeTokenHandler(result.token);
+                    }
+                });
+            });
+
+            function stripeTokenHandler(token) {
+                var form = document.getElementById('donation-form');
+                var hiddenInput = document.createElement('input');
+                hiddenInput.setAttribute('type', 'hidden');
+                hiddenInput.setAttribute('name', 'stripeToken');
+                hiddenInput.setAttribute('value', token.id);
+                form.appendChild(hiddenInput);
+                form.submit();
+            }
+
+            form.onsubmit = function () {
+                form.style.display = 'none';
+                confirmationMessage.style.display = 'block';
+                return false;
+            };
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Terra Clean</h1>
+        <p>Concientizando sobre el cuidado del medio ambiente</p>
+    </header>
+
+    <section>
+        <div class="container">
+            <img src="https://via.placeholder.com/800x400" alt="Imagen representativa" class="main-image">
+            <div class="content">
+                <h2>Bienvenido a Terra Clean</h2>
+                <p>Somos una comunidad comprometida con la concienciación sobre el cuidado del medio ambiente y la gestión adecuada de los residuos. Creemos en la importancia de proteger nuestro planeta para las generaciones futuras.</p>
+                <p>En Terra Clean, trabajamos para informar y educar a las personas sobre cómo pueden reducir su huella ambiental y contribuir a un mundo más limpio y sostenible. Juntos, podemos marcar la diferencia.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Formulario de Donación</h2>
+            <div class="donation-form">
+                <form id="donation-form" action="/procesar-donacion" method="post">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="amount">Selecciona una cantidad:</label>
+                    <div class="donation-options">
+                        <input type="radio" id="amount10" name="amount" value="10" required>
+                        <label for="amount10">$10</label>
+                        
+                        <input type="radio" id="amount20" name="amount" value="20" required>
+                        <label for="amount20">$20</label>
+                        
+                        <input type="radio" id="amount50" name="amount" value="50" required>
+                        <label for="amount50">$50</label>
+                        
+                        <input type="radio" id="amount100" name="amount" value="100" required>
+                        <label for="amount100">$100</label>
+                        
+                        <input type="radio" id="amountCustom" name="amount" value="custom" required>
+                        <label for="amountCustom">Otra cantidad</label>
+                    </div>
+                    
+                    <label for="card-element">Información de la Tarjeta:</label>
+                    <div id="card-element"></div>
+                    <div id="card-errors" role="alert"></div>
+                    
+                    <button type="submit">Donar</button>
+                </form>
+                <p>Al hacer clic en "Donar", serás dirigido al sitio de procesamiento de pagos seguro.</p>
+            </div>
+            <div id="confirmation-message" class="confirmation-message">
+                <h2>¡Tu donación ha sido recibida!</h2>
+                <p>Gracias por tu generoso apoyo a Terra Clean.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Testimonios</h2>
+            <div class="testimonial">
+                <p>"Gracias a Terra Clean por su dedicación. Mi familia y yo estamos felices de apoyar su trabajo."</p>
+                <p>- Juan Pérez, Donante</p>
+            </div>
+            <div class="testimonial">
+                <p>"He visto el impacto directo de los proyectos de Terra Clean en nuestra comunidad. ¡Sigan adelante!"</p>
+                <p>- María Gómez, Voluntaria</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container faq">
+            <h2>Preguntas Frecuentes</h2>
+            <div>
+                <h3>¿Cómo se utiliza mi donación?</h3>
+                <p>Tu donación se destina a financiar proyectos de limpieza, educación ambiental y campañas de concienciación.</p>
+            </div>
+            <div>
+                <h3>¿Es segura la transacción de mi donación?</h3>
+                <p>Sí, utilizamos una plataforma de pago segura para procesar todas las donaciones.</p>
+            </div>
+            <div>
+                <h3>¿Puedo hacer una donación recurrente?</h3>
+                <p>Por supuesto, puedes elegir hacer donaciones recurrentes mensuales a través de nuestro formulario de donación.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Terra Clean. Todos los derechos reservados.</p>
+        <p>Síguenos en:
+            <a href="https://www.facebook.com">Facebook</a> |
+            <a href="https://www.twitter.com">Twitter</a> |
+            <a href="https://www.instagram.com">Instagram</a>
+        </p>
+    </footer>
+</body>
+</html>
